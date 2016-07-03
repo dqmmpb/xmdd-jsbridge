@@ -1,0 +1,31 @@
+{
+  "name": "xmdd-jsbridge",
+  "private": true,
+  "version": "3.1.0",
+  "main": [
+    "css/js-bridge.min.css",
+    "dist/js-bridge-init.min.js",
+    "dist/js-bridge-form.min.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "build",
+    ".babelrc",
+    ".editorconfig",
+    ".gitignore",
+    ".gitattributes",
+    "package.json"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "modernizr": "~2.8.1",
+    "jquery": "^2.2.0"
+  },
+  "devDependencies": {
+    "mocha": "~2.3.4",
+    "chai": "~3.4.2"
+  }
+}
