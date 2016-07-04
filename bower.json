@@ -2,11 +2,7 @@
   "name": "xmdd-jsbridge",
   "private": true,
   "version": "3.1.0",
-  "main": [
-    "css/js-bridge.css",
-    "dist/js-bridge-init.js",
-    "dist/js-bridge-form.js"
-  ],
+  "main": "dist/js-bridge-init.js",
   "ignore": [
     "**/.*",
     "node_modules",
