@@ -12,6 +12,8 @@
     ".editorconfig",
     ".gitignore",
     ".gitattributes",
+    "gulp",
+    "gulpfile.babel.js",
     "package.json"
   ],
   "license": "MIT",
