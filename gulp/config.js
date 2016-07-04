@@ -36,7 +36,7 @@ module.exports = {
   },
   styles: {
     development: {
-      src:  [src + '/less/js-bridge.less'],
+      src:  [src + '/less/xmdd-jsbridge.less'],
       filter:{
         rem: ['**', '!**/rem.css']
       },

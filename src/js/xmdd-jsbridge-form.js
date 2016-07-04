@@ -1,4 +1,4 @@
-(function(){
+(function($){
   'use strict';
 
   // 默认设置 defaults
@@ -58,5 +58,5 @@
     jsBridgeForm.remove();
   };
 
-})($);
+})(jQuery);
 
