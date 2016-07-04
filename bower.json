@@ -3,9 +3,9 @@
   "private": true,
   "version": "3.1.0",
   "main": [
-    "css/js-bridge.min.css",
-    "dist/js-bridge-init.min.js",
-    "dist/js-bridge-form.min.js"
+    "css/js-bridge.css",
+    "dist/js-bridge-init.js",
+    "dist/js-bridge-form.js"
   ],
   "ignore": [
     "**/.*",
