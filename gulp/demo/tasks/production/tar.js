@@ -8,7 +8,7 @@ import {tar as config}  from '../../config';
 const $ = gulpLoadPlugins();
 
 //打包成tar.gz压缩包到tar目录下
-gulp.task('tar', ['tar:clean'],function(){
+gulp.task('demo:tar', ['demo:tar:clean'],function(){
 
   browserSync.notify('Building tar');
 
@@ -19,8 +19,8 @@ gulp.task('tar', ['tar:clean'],function(){
 });
 
 //删除tar目录
-gulp.task('tar:clean', del.bind(null, config.production.dest));
+gulp.task('demo:tar:clean', del.bind(null, config.production.dest));
 
-gulp.task('prod', (cb) => {
-  $.sequence('publish', 'tar', cb);
+gulp.task('demo:prod', function(cb) {
+  $.sequence('demo:publish', 'demo:tar', cb);
 });

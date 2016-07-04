@@ -1,5 +1,5 @@
 var project           = 'xmdd-jsbridge';
-var src               = 'src';
+var src               = 'src/core';
 var dist              = 'dist';
 var build             = 'build';
 var tar               = 'tar';

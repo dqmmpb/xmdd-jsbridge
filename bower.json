@@ -13,6 +13,7 @@
     ".gitignore",
     ".gitattributes",
     "gulp",
+    "**/demo",
     "gulpfile.babel.js",
     "package.json"
   ],
