@@ -1,5 +1,6 @@
 'use strict';
 
+
 function connectWebViewJavascriptBridge(callback) {
 	if (window.WebViewJavascriptBridge) {
 		callback(WebViewJavascriptBridge);
@@ -31,4 +32,10 @@ $(function() {
 			});
 		}
 	});
+
+  alert(navigator.userAgent);
+
+  setTimeout(function() {
+    alert(!!window.WebViewJavascriptBridge);
+  }, 1);
 });

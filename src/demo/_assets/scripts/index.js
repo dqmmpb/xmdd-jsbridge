@@ -163,6 +163,46 @@ $(function() {
 
       }); //jsbrige.call 结束
     });
+
+    // 定义右上角按钮回调
+    bridge.registerHandler('barNavBtnHandler', function(data, responseCallback) {
+      if(typeof data === 'string')
+        data = JSON.parse(data);
+      // alert(data.triggerId);
+
+      if(data.triggerId === 'btnMap') {
+        bridge.callHandler('getUserToken', null, function(response) {
+          if (response == null) {
+            var loginParams = {
+              triggerId: 'btnLogin'
+            };
+            bridge.callHandler('login', loginParams, function(lresponse) {});
+            return;
+          }
+          if(typeof response === 'string')
+            response = JSON.parse(response);
+          var rData = response;
+          var token = rData.token;
+          var phone = rData.phone;
+          var triggerId = rData.triggerId;
+          $('#token').val(token);
+          $('#trigger').val(triggerId);
+          $('#respData').val(rData);
+
+          /*        setTimeout(function(){
+           window.location.href = 'second.html';
+           }, 300);*/
+
+        }); //jsbrige.call 结束
+      } else if(data.triggerId === 'btnRefresh') {
+        window.location.reload();
+      }
+
+      var barNavParam = {};
+      barNavParam.triggerId = 'true';
+      responseCallback(barNavParam);
+    });
+
     //定义右上角按钮
     $('.btn-barNavBtn').click(function () {
       var btnParams = {
@@ -170,6 +210,18 @@ $(function() {
         triggerId: 'btnMap',
         icon: 'http://7xjclc.com1.z0.glb.clouddn.com/%E5%AF%BC%E8%88%AA@3x.png',
         title: '附近',
+        type: '0'
+      };
+      bridge.callHandler('barNavBtn', btnParams, function(response) {});
+    });
+
+    //定义右上角按钮
+    $('.btn-barRefreshBtn').click(function () {
+      var btnParams = {
+        position: 'right',
+        triggerId: 'btnRefresh',
+        icon: 'http://7xjclc.com1.z0.glb.clouddn.com/%E5%AF%BC%E8%88%AA@3x.png',
+        title: '刷新',
         type: '0'
       };
       bridge.callHandler('barNavBtn', btnParams, function(response) {});
@@ -227,6 +279,26 @@ $(function() {
     $('.btn-toast').click(function () {
       alertMsg('成功');
     });
+    //获取地理位置
+    $('.btn-position').click(function () {
+      bridge.callHandler('getCurrentPosition', null, function (response) {
+        alertMsg(response);
+      });
+    });
+    //获取当前网络状态
+    $('.btn-netState').click(function () {
+      bridge.callHandler('callForNetworkState', null, function (response) {
+        alertMsg(response);
+      });
+    });
+    //拨打电话
+    $('.btn-callPhone').click(function () {
+      var phoneNumber = {};
+      phoneNumber.phoneNum = '110';
+      JSON.stringify(phoneNumber);
+      bridge.callHandler('getPhoneCall', phoneNumber, function (response) {
+      });
+    });
 
     //上传图片
     var imgResponsiveClickHandler = function(event) {
@@ -275,15 +347,15 @@ $(function() {
         type: '0',
         buttons: [
           {
-            text: '取消',
+            text: '取0消',
             value: 0
           },
           {
-            text: '确定',
+            text: '确1定',
             value: 1
           },
           {
-            text: '待定',
+            text: '待2定',
             value: 2
           }
         ]
