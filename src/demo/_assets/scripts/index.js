@@ -4,6 +4,13 @@ $(function() {
 
   connectWebViewJavascriptBridge(function(bridge) {
 
+    // 绑定返回事件
+    bridge.registerHandler('returnBackHandler', function(data, responseCallback) {
+      var backParam = {};
+      backParam.isFirstPage = 'true';
+      responseCallback(backParam);
+    });
+
     bridge.registerHandler('modalHandler', function(data, responseCallback) {
       var modalParam = {};
       modalParam.value = 0;
@@ -405,11 +412,19 @@ $(function() {
       }); //jsbrige.call 结束
     });
 
-    // 绑定返回事件
-    bridge.registerHandler('returnBackHandler', function(data, responseCallback) {
-      var backParam = {};
-      backParam.isFirstPage = 'true';
-      responseCallback(backParam);
+    $('.btn-custom-share').click(function () {
+      bridge.registerHandler('getShareParamHandler', function(data, responseCallback) {
+        var shareParam = {};
+        shareParam.title = '浙商银行汽车卡申请';
+        shareParam.desc = '车主福利，汽车卡来袭！属于车主的信用卡，各种优惠等您来享！';
+        shareParam.linkUrl = 'http://www.baidu.com';
+        shareParam.imgUrl = 'http://7xjclc.com2.z0.glb.clouddn.com/1012.png';
+        shareParam.imgUrlWb = 'http://7xjclc.com2.z0.glb.clouddn.com/1012-wb.png';
+        shareParam.buttons = [1, 2, 3, 4];
+        responseCallback(shareParam);
+      });
+
+      bridge.callHandler('callShareAction', {}, function(Sresponse) {});
     });
   });
 

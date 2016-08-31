@@ -32,10 +32,4 @@ $(function() {
 			});
 		}
 	});
-
-  alert(navigator.userAgent);
-
-  setTimeout(function() {
-    alert(!!window.WebViewJavascriptBridge);
-  }, 1);
 });

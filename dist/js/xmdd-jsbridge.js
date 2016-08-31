@@ -1,5 +1,6 @@
 'use strict';
 
+
 function connectWebViewJavascriptBridge(callback) {
 	if (window.WebViewJavascriptBridge) {
 		callback(WebViewJavascriptBridge);
