@@ -8,3 +8,5 @@ tar
 build
 demo/assets
 demo/development
+demo/dist
+demo/rev

@@ -22,5 +22,5 @@ gulp.task('demo:tar', ['demo:tar:clean'],function(){
 gulp.task('demo:tar:clean', del.bind(null, config.production.dest));
 
 gulp.task('demo:prod', function(cb) {
-  $.sequence('demo:publish', 'demo:tar', cb);
+  $.sequence('demo:publish', 'demo:rev', 'demo:tar', cb);
 });

@@ -2,6 +2,187 @@
 
 $(function() {
 
+  function initApp() {
+    var ua = (navigator.userAgent || navigator.vendor || window.opera);
+    if (ua != null) {
+      var uaName = ua.toLowerCase();
+      if (/ip(hone|od|ad|os)/i.test(uaName)) {
+        if(/micromessenger/i.test(uaName)){
+          $('.btn-wechat').click(function () {
+            location.href = 'xmdd://';
+          });
+        } else {
+          try {
+
+            // location.href= 'xmdd://';
+            /*          var ifr = document.createElement('iframe');
+             ifr.src = 'xmdd://';
+             ifr.style.display = 'none';
+             document.body.appendChild(ifr);
+             setTimeout(function(){
+             document.body.removeChild(ifr);
+
+             if(/micromessenger/i.test(uaName)){
+             location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.huika.o2o.android.xmdd';
+             } else {
+             location.href = 'https://itunes.apple.com/cn/app/xiao-ma-da-da-xi-che-zhi-yao1fen/id991665445&mt=8';
+             }
+
+             }, 30);*/
+
+          } catch(e) {
+            console.log(e);
+          }
+        }
+
+      } else {
+        if(/micromessenger/i.test(uaName)){
+          $('.btn-wechat').click(function () {
+            location.href = 'xmdd://';
+          });
+        } else{
+          //location.href = 'xmdd://';
+          var ifr = document.createElement('iframe');
+          ifr.src = 'xmdd://';
+          ifr.style.display = 'none';
+          document.body.appendChild(ifr);
+          setTimeout(function(){
+            document.body.removeChild(ifr);
+            if(/micromessenger/i.test(uaName)){
+              location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.huika.o2o.android.xmdd';
+            } else{
+              location.href = 'http://www.xiaomadada.com/paaweb/general/download';
+            }
+          }, 30);
+        }
+      }
+    }
+  }
+
+  initApp();
+
+
+  /*function initWechat() {
+    var domain = '';
+    var linkUrl = '';
+    var imgUrl = '', imgUrlWb = '', title = '', quanTitle = '', desc = '';
+
+    var ch = '1052';
+    var fr = 'wechat';
+    var sel = $('#sel').val();
+    if(sel){
+      sel = encodeURI(sel);
+    }
+
+    console.log(location.href);
+    $.get('http://dev.xiaomadada.com/paaweb/general/v2/getJddkData', {
+      url: location.href,
+      channel: ch,
+      from: fr,
+      extra: sel
+    }, function(data) {
+      domain = data.domain;
+      linkUrl = data.linkurl;
+      imgUrl = data.imgurl;
+      imgUrlWb = data.imgurlWb;
+      title = data.title;
+      quanTitle = data.quanTitle;
+      if (quanTitle == null) {
+        quanTitle = title;
+      }
+      desc = data.desc;
+
+      wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: data.appid, // 必填，公众号的唯一标识
+        timestamp: data.timestamp, // 必填，生成签名的时间戳
+        nonceStr: data.nonceStr, // 必填，生成签名的随机串
+        signature: data.signature,// 必填，签名，见附录1
+        jsApiList: ['checkJsApi', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo']
+        // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+      wx.ready(function() {
+        wx.onMenuShareTimeline({
+          title: quanTitle, // 分享标题
+          link: linkUrl, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          success: function() {
+          },
+          cancel: function() {
+          }
+        });
+        wx.error(function(res) {
+          //			alert('errorMSG:' + res.errMsg);
+        });
+        wx.onMenuShareAppMessage({
+          title: title, // 分享标题
+          link: linkUrl, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          desc: desc,
+          success: function() {
+          },
+          cancel: function() {
+          }
+        });
+        wx.onMenuShareWeibo({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: linkUrl, // 分享链接
+          imgUrl: imgUrlWb, // 分享图标
+          success: function() {
+
+          },
+          cancel: function() {
+
+          }
+        });
+        wx.onMenuShareQQ({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: linkUrl, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          success: function() {
+
+          },
+          cancel: function() {
+          }
+        });
+
+      });
+    });
+  }
+
+
+
+  initWechat();*/
+
+
+
+  function checkOS(){
+    try{
+      var ua = (navigator.userAgent || navigator.vendor || window.opera);
+      if (ua != null) {
+        var uaName = ua.toLowerCase();
+        if (/ip(hone|od|ad|os)/i.test(uaName)) {
+          if(/micromessenger/i.test(uaName)){
+            location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.huika.o2o.android.xmdd';
+          } else {
+            location.href = 'https://itunes.apple.com/cn/app/xiao-ma-da-da-xi-che-zhi-yao1fen/id991665445&mt=8';
+          }
+
+        } else {
+          if(/micromessenger/i.test(uaName)){
+            location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.huika.o2o.android.xmdd';
+          } else{
+            location.href = 'http://www.xiaomadada.com/paaweb/general/download';
+          }
+        }
+      }
+    }catch(e){
+      console.log(e);
+    }
+  }
+
   connectWebViewJavascriptBridge(function(bridge) {
 
     // 绑定返回事件
@@ -12,9 +193,22 @@ $(function() {
     });
 
     bridge.registerHandler('modalHandler', function(data, responseCallback) {
+
+      if(typeof data === 'string')
+        data = JSON.parse(data);
+
+      var modalId = data.modalId;
+      if(modalId === 'modalUpdate1') {
+        var result = data.value;
+        if(result === 1) {
+          checkOS();
+        }
+      }
+
       var modalParam = {};
       modalParam.value = 0;
       modalParam.modalId = 'modal1';
+
       responseCallback(modalParam);
     });
 
@@ -426,6 +620,36 @@ $(function() {
 
       bridge.callHandler('callShareAction', {}, function(Sresponse) {});
     });
+
+    $('.btn-update-guide').click(function () {
+
+      var u = navigator.userAgent;
+
+      // 调用modal弹框
+
+      var version = window.navigator.userAgent;
+
+      var modalParams = {
+        modalId: 'modalUpdate1',
+        title: '温馨提示',
+        text: '您的版本太低啦，赶快升级最新版本享受更多优质服务！',
+        type: '0',
+        buttons: [
+          {
+            text: '忽略',
+            value: 0
+          },
+          {
+            text: '前去更新',
+            value: 1
+          }
+        ]
+      };
+
+      bridge.callHandler('modal', modalParams, function(response) {
+      }); //jsbrige.call 结束
+    });
+
   });
 
 });

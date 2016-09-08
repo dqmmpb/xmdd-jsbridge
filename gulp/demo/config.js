@@ -7,6 +7,9 @@ var srcAssets         = 'src/demo/_assets';
 var developmentAssets = 'demo/assets';
 var productionAssets  = 'demo/production/assets';
 var tar               = 'tar';
+var dist              = 'demo/dist';
+var distAssets        = 'demo/dist/assets';
+var rev               = 'demo/rev';
 
 module.exports = {
   project: {
@@ -91,7 +94,7 @@ module.exports = {
   fonts: {
     development: {
       filter: '**/*.{eot,svg,ttf,woff,woff2}',
-      src:  srcAssets + '/fonts/**',
+      src: srcAssets + '/fonts/**',
       dest: developmentAssets + '/fonts'
     },
     production: {
@@ -112,7 +115,7 @@ module.exports = {
     },
     production: {
       useref: {
-          searchPath: [build, src, '.' ]
+        searchPath: [build, src, '.' ]
       },
       jsfilter: ['**', '!**/main*.js'],
       cssfilter: ['**/*.css'],
@@ -120,8 +123,25 @@ module.exports = {
         regExps:[/..\/img\//],
         newPath: '../images/'
       },
-      src:  development + '/**/*.html',
+      src: development + '/**/*.html',
       dest: production
+    }
+  },
+  rev: {
+    production: {
+      useref: {
+        searchPath: [production, dist, '.' ]
+      },
+      jsfilter: ['**/*.js'],
+      cssfilter: ['**/*.css'],
+      nojscssfilter: ['**/*','!**/*.js', '!**/*.css'],
+      src: production + '/**/*',
+      dest: dist,
+      rev: {
+        js: rev + '/js',
+        css: rev + '/css'
+      },
+      revSrc: [ rev + '/**/*.json', production + '/**/*.html']
     }
   },
   clean: {
@@ -175,7 +195,7 @@ module.exports = {
   tar: {
     name: project + '.tar',
     production: {
-      src: production + '/**',
+      src: dist + '/**',
       dest: tar
     }
   }
