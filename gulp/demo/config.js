@@ -141,7 +141,16 @@ module.exports = {
         js: rev + '/js',
         css: rev + '/css'
       },
-      revSrc: [ rev + '/**/*.json', production + '/**/*.html']
+      revSrc: [ rev + '/**/*.json', production + '/**/*.html'],
+      append: {
+        src: [ production + '/**/*.html'],
+        dest: production
+      },
+      hash: {
+        src: production + '/**/*.html',
+        dest: dist,
+        assetsDir: production
+      }
     }
   },
   clean: {

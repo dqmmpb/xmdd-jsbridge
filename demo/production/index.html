@@ -1,79 +1,92 @@
 <!doctype html>
 <html class="no-js" lang="">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  <title>发现</title>
+<title>发现</title>
 
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <!-- Place favicon.ico in the root directory -->
-  <link type="image/x-icon" rel="shortcut icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!-- Place favicon.ico in the root directory -->
+<link type="image/x-icon" rel="shortcut icon" href="favicon.ico">
 
-  
+<!-- rev-hash -->
 
-  <link rel="stylesheet" href="assets/css/xmdd.css">
+<!-- end -->
 
+<!-- rev-hash -->
+<link rel="stylesheet" href="assets/css/xmdd.css">
+<!-- end -->
 
 </head>
 <body>
 
-  <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
-  <div class="page-group">
-    <!-- 单个page ,第一个.page默认被展示-->
-    <div id="page-index" class="page page-current">
-      <!-- 这里是页面内容区 -->
-      <div class="content">
+<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+<div class="page-group">
+  <!-- 单个page ,第一个.page默认被展示-->
+  <div id="page-index" class="page page-current">
+    <!-- 这里是页面内容区 -->
+    <div class="content">
 
-        <div>
-          <ul>
-            <li><input type="text" id="token"/></li>
-            <li><input type="text" id="trigger"/></li>
-            <li><input type="text" id="respData"/></li>
-            <li><button class="btn-getoken">获取token</button></li>
-            <li><button class="btn-go">去第二页,未登录会调用登录框</button></li>
-            <li><button class="btn-modal">调用弹框</button></li>
-            <li><button class="btn-navi">调用导航</button></li>
-            <li><button class="btn-login">登录</button></li>
-            <li><button class="btn-barNavBtn">定义按钮</button></li>
-            <li><button class="btn-barRefreshBtn">定义刷新按钮</button></li>
-            <li><button class="btn-barNavBtn2">清除定义按钮</button></li>
-            <li><button class="btn-share">添加分享</button></li>
-            <li><button class="btn-openView">打开新的View加载页面</button></li>
-            <li><button class="btn-toast">弱提示</button></li>
-            <li><button class="btn-uploadImg">上传图片</button>
-              <img class="img-uploadImg" src="" style="width: 50px;height: 50px;">
-            </li>
-            <li><button class="btn-position">获取地理位置</button></li>
-            <li><button class="btn-netState">获取当前网络状态</button></li>
-            <li><button class="btn-callPhone">拨打电话号码</button></li>
-            <li><button class="btn-notice">通知安卓客户端当前页面是否属于第三方页面</button></li>
-            <li><button class="btn-custom-share">主动调分享</button></li>
-            <li><button class="btn-update-guide">版本更新，引导下载</button></li>
-            <li><button class="btn-wechat">微信中唤醒App</button></li>
-          </ul>
-        </div>
-
+      <div>
+        <ul>
+          <li><input type="text" id="token"/></li>
+          <li><input type="text" id="trigger"/></li>
+          <li><input type="text" id="respData"/></li>
+          <li><button class="btn-getoken">获取token</button></li>
+          <li><button class="btn-go">去第二页,未登录会调用登录框</button></li>
+          <li><button class="btn-modal">调用弹框</button></li>
+          <li><button class="btn-navi">调用导航</button></li>
+          <li><button class="btn-login">登录</button></li>
+          <li><button class="btn-barNavBtn">定义按钮</button></li>
+          <li><button class="btn-barRefreshBtn">定义刷新按钮</button></li>
+          <li><button class="btn-barNavBtn2">清除定义按钮</button></li>
+          <li><button class="btn-share">添加分享</button></li>
+          <li><button class="btn-openView">打开新的View加载页面</button></li>
+          <li><button class="btn-toast">弱提示</button></li>
+          <li><button class="btn-uploadImg">上传图片</button>
+            <img class="img-uploadImg" src="" style="width: 50px;height: 50px;">
+          </li>
+          <li><button class="btn-position">获取地理位置</button></li>
+          <li><button class="btn-netState">获取当前网络状态</button></li>
+          <li><button class="btn-callPhone">拨打电话号码</button></li>
+          <li><button class="btn-notice">通知安卓客户端当前页面是否属于第三方页面</button></li>
+          <li><button class="btn-custom-share">主动调分享</button></li>
+          <li><button class="btn-update-guide">版本更新，引导下载</button></li>
+          <li><button class="btn-wechat">微信中唤醒App</button></li>
+        </ul>
       </div>
 
     </div>
 
   </div>
 
-  <script src="assets/scripts/vendor/modernizr.js"></script>
+</div>
 
-  <script src="assets/scripts/vendor.js"></script>
+<!-- rev-hash -->
+<script src="assets/scripts/vendor/modernizr.js"></script>
+<!-- end -->
 
-  <script src="assets/scripts/vendor/xmdd-jsbridge.js"></script>
+<!-- rev-hash -->
+<script src="assets/scripts/vendor.js"></script>
+<!-- end -->
 
-  <script src="assets/scripts/common.js"></script>
+<!-- rev-hash -->
+<script src="assets/scripts/vendor/xmdd-jsbridge.js"></script>
+<!-- end -->
 
-  <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<!-- rev-hash -->
+<script src="assets/scripts/common.js"></script>
+<!-- end -->
 
-  <script src="assets/scripts/index.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<!-- rev-hash -->
+<script src="assets/scripts/index.js"></script>
+<!-- end -->
 
 </body>
 </html>
