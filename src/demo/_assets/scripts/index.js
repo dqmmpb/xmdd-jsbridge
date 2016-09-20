@@ -77,6 +77,23 @@ $(function() {
       responseCallback(loginParam);
     });
 
+    bridge.registerHandler('addCarHandler', function(data, responseCallback) {
+
+      if(typeof data === 'string')
+        data = JSON.parse(data);
+
+      var triggerId = data.triggerId;
+      if(triggerId === 'btnAddCar') {
+        var carId = data.carId;
+        //alert(carId);
+      }
+
+      var addCarParam = {};
+      addCarParam.triggerId = 'btnAddCar';
+      responseCallback(addCarParam);
+    });
+
+
     // 定义右上角按钮回调
     bridge.registerHandler('barNavBtnHandler', function(data, responseCallback) {
       if(typeof data === 'string')
@@ -494,6 +511,18 @@ $(function() {
       }); //jsbrige.call 结束
     });
 
+    // 点击跳转新增车辆
+
+
+
+    $('.btn-addCar').bind('click', function (event) {
+      var carParams = {
+        "triggerId": "btnAddCar"
+      };
+      bridge.callHandler('addCar', carParams, function(response) {
+
+      }); //jsbrige.call 结束
+    });
   });
 
 });
