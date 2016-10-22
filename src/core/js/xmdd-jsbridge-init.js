@@ -129,6 +129,7 @@ JsBridge.prototype.barNavBtn = function(btnRightParams) {
  * @param callback
  */
 JsBridge.prototype.getUserToken = function(triggerId, callback) {
+  var _self = this;
   var bridge = this.bridge;
   bridge.callHandler('getUserToken', null, function (response) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -136,7 +137,7 @@ JsBridge.prototype.getUserToken = function(triggerId, callback) {
       response = JSON.parse(response);
 
     if (response == null) {
-      bridge.login(triggerId);
+      _self.login(triggerId);
       return;
     }
     /*var rData = response;
