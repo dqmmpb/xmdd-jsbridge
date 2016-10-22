@@ -14,8 +14,8 @@
     }
   };
 
-  //jsBridge 调用定义
-  $.jsBridge = function(params){
+  //jsBridgeForm 调用定义
+  $.jsBridgeForm = function(params){
 
     params = $.extend({}, defaults, params);
 

@@ -68,10 +68,6 @@ $(function() {
       $('#trigger').val(triggerId);
       $('#respData').val(data);
 
-      /*      setTimeout(function(){
-       window.location.href = 'second.html';
-       }, 300);*/
-
       var loginParam = {};
       loginParam.triggerId = 'btnlogin';
       responseCallback(loginParam);
@@ -85,8 +81,9 @@ $(function() {
       var triggerId = data.triggerId;
       if(triggerId === 'btnAddCar') {
         var carId = data.carId;
-        //alert(carId);
+        $('#info').html(JSON.stringify(data));
       }
+
 
       var addCarParam = {};
       addCarParam.triggerId = 'btnAddCar';
@@ -113,7 +110,7 @@ $(function() {
         var rData = response;
         var token = rData.token;
         var phone = rData.phone;
-        var triggerId = rData.triggerId;
+        var triggerId = data.triggerId;
         $('#token').val(token);
         $('#trigger').val(triggerId);
         $('#respData').val(rData);
@@ -130,55 +127,14 @@ $(function() {
     });
 
 
-
-    /* bridge.callHandler('getUserToken', null, function(response) {
-
-     if (response == null) {
-
-     // 设置登录表单
-     var jsBridgeForm = $.jsBridge({
-     id: 'jsBridgeForm',
-     method: 'GET',
-     action: 'xmdd://j',
-     inputs: [{
-     name: 't',
-     value: 'login'
-     }]
-     });
-
-     $.submitJsBridgeForm(jsBridgeForm); //跳转到登录
-
-     return;
-     }
-
-     var res = JSON.parse(response);
-     var token = res.token;
-     var phone = res.phone;
-     $('#token').val(token);
-
-     //window.location.href = 'second.html';
-
-     }); //jsbrige.call 结束*/
-
-
     $('.btn-getoken').bind('click', function (event) {
       bridge.callHandler('getUserToken', null, function(response) {
 
         if (response == null) {
-
-          // 设置登录表单
-          var jsBridgeForm = $.jsBridge({
-            id: 'jsBridgeForm',
-            method: 'GET',
-            action: 'xmdd://j',
-            inputs: [{
-              name: 't',
-              value: 'login'
-            }]
-          });
-
-          $.submitJsBridgeForm(jsBridgeForm); //跳转到登录
-
+          var loginParams = {
+            triggerId: 'btnLogin'
+          };
+          bridge.callHandler('login', loginParams, function(lresponse) {});
           return;
         }
 
@@ -198,20 +154,10 @@ $(function() {
     $('.btn-go').bind('click', function (event) {
       bridge.callHandler('getUserToken', null, function(response) {
         if (response == null) {
-
-          // 设置登录表单
-          var jsBridgeForm = $.jsBridge({
-            id: 'jsBridgeForm',
-            method: 'GET',
-            action: 'xmdd://j',
-            inputs: [{
-              name: 't',
-              value: 'login'
-            }]
-          });
-
-          $.submitJsBridgeForm(jsBridgeForm); //跳转到登录
-
+          var loginParams = {
+            triggerId: 'btnLogin'
+          };
+          bridge.callHandler('login', loginParams, function(lresponse) {});
           return;
         }
 
@@ -409,7 +355,7 @@ $(function() {
         type: '0',
         buttons: [
           {
-            text: '取0消',
+            text: '好的',
             value: 0
           },
           {
@@ -467,7 +413,7 @@ $(function() {
       }); //jsbrige.call 结束
     });
 
-    $('.btn-custom-share').click(function () {
+    $('.btn-custom-share').bind('click', function (event) {
       bridge.registerHandler('getShareParamHandler', function(data, responseCallback) {
         var shareParam = {};
         shareParam.title = '浙商银行汽车卡申请';
@@ -482,7 +428,7 @@ $(function() {
       bridge.callHandler('callShareAction', {}, function(Sresponse) {});
     });
 
-    $('.btn-update-guide').click(function () {
+    $('.btn-update-guide').bind('click', function (event) {
 
       var u = navigator.userAgent;
 
@@ -517,10 +463,9 @@ $(function() {
 
     $('.btn-addCar').bind('click', function (event) {
       var carParams = {
-        "triggerId": "btnAddCar"
+        triggerId: 'btnAddCar'
       };
       bridge.callHandler('addCar', carParams, function(response) {
-
       }); //jsbrige.call 结束
     });
   });

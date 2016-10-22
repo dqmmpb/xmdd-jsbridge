@@ -17,19 +17,19 @@ function thirdPartyPageTest(data) {
 	return JSON.stringify(testObj);
 }
 
-$(function() {
-	connectWebViewJavascriptBridge(function(bridge) {
-		bridge.init(function(message, responseCallback) {
-			responseCallback(null);
-		});
+connectWebViewJavascriptBridge(function(bridge) {
+  bridge.init(function(message, responseCallback) {
+    responseCallback(null);
+  });
 
-		if (/(Android)/i.test(navigator.userAgent)) {
-			var notifyObj = {};
-			notifyObj.isThirdPartyPage = 'false';
-			bridge.callHandler('thirdPartyPageNotify', notifyObj, function(
-					response) {
+  if (/(Android)/i.test(navigator.userAgent)) {
+    var notifyObj = {};
+    notifyObj.isThirdPartyPage = 'false';
+    bridge.callHandler('thirdPartyPageNotify', notifyObj, function(
+        response) {
 
-			});
-		}
-	});
+    });
+  }
 });
+
+
