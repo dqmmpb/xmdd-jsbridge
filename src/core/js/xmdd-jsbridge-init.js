@@ -192,7 +192,7 @@ JsBridge.prototype.init = function() {
 };
 
 (function($){
-  $.jsBridgeTools = function init(callback) {
+  $.jsBridgeInit = function init(callback) {
     var args = Array.prototype.slice.call(arguments, 1);
     var regExp = /(?:(?:XmddApp\()(?:\w+)|(?:Xmdd))+[\/]{0,1}([\d.]+)(?:\))?/i; //兼容旧版本
     if(regExp.test(navigator.userAgent)) {
