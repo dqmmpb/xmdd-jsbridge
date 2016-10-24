@@ -34,6 +34,7 @@ JsBridge.prototype.openView = function(url) {
  * @param callback
  */
 JsBridge.prototype.loginHandler = function(callback) {
+  var args = Array.prototype.slice.call(arguments, 1);
   var bridge = this.bridge;
   bridge.registerHandler('loginHandler', function (response, responseCallback) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -45,7 +46,6 @@ JsBridge.prototype.loginHandler = function(callback) {
      var triggerId = response.triggerId;*/
 
     if(typeof callback === 'function') {
-      var args = Array.prototype.slice.call(arguments, 1);
       callback.apply(this, Array.prototype.concat(response, args));
     }
 
@@ -61,6 +61,7 @@ JsBridge.prototype.loginHandler = function(callback) {
  * @param callback
  */
 JsBridge.prototype.login = function(triggerId, callback) {
+  var args = Array.prototype.slice.call(arguments, 2);
   var bridge = this.bridge;
   var loginParams = {
     triggerId: triggerId
@@ -68,7 +69,6 @@ JsBridge.prototype.login = function(triggerId, callback) {
   bridge.callHandler('login', loginParams, function (response) {});
 
   if(typeof callback === 'function') {
-    var args = Array.prototype.slice.call(arguments, 2);
     callback.apply(this, Array.prototype.concat(triggerId, args));
   }
 };
@@ -129,6 +129,7 @@ JsBridge.prototype.barNavBtn = function(btnRightParams) {
  * @param callback
  */
 JsBridge.prototype.getUserToken = function(triggerId, callback) {
+  var args = Array.prototype.slice.call(arguments, 2);
   var _self = this;
   var bridge = this.bridge;
   bridge.callHandler('getUserToken', null, function (response) {
@@ -148,7 +149,6 @@ JsBridge.prototype.getUserToken = function(triggerId, callback) {
     response.triggerId = triggerId;
 
     if(typeof callback === 'function') {
-      var args = Array.prototype.slice.call(arguments, 2);
       callback.apply(this, Array.prototype.concat(response, args));
     }
 
@@ -169,6 +169,7 @@ JsBridge.prototype.callShareAction = function() {
  * @param callback
  */
 JsBridge.prototype.barNavBtnHandler = function(callback) {
+  var args = Array.prototype.slice.call(arguments, 1);
   var bridge = this.bridge;
   bridge.registerHandler('barNavBtnHandler', function (response, responseCallback) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -176,7 +177,6 @@ JsBridge.prototype.barNavBtnHandler = function(callback) {
       response = JSON.parse(response);
 
     if(typeof callback === 'function') {
-      var args = Array.prototype.slice.call(arguments, 1);
       callback.apply(this, Array.prototype.concat(response, args));
     }
   });
