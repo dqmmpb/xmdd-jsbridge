@@ -77,12 +77,17 @@ JsBridge.prototype.login = function(triggerId, callback) {
  * 左上角返回按钮
  * @param backParams
  */
-JsBridge.prototype.returnBackHandler = function(backParams) {
+JsBridge.prototype.returnBackHandler = function(backParams, callback) {
+  var args = Array.prototype.slice.call(arguments, 2);
   var bridge = this.bridge;
   // 定义返回
   bridge.registerHandler('returnBackHandler', function(response, responseCallback) {
     /*    var backParam = {};
      backParam.isFirstPage = true;*/
+
+    if(typeof callback === 'function') {
+      callback.apply(this, args);
+    }
     responseCallback(backParams);
   });
 };
