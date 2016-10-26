@@ -74,6 +74,49 @@ JsBridge.prototype.login = function(triggerId, callback) {
 };
 
 /**
+ * 添加爱车成功后回调
+ * @param callback
+ */
+JsBridge.prototype.addCarHandler = function(callback) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  var bridge = this.bridge;
+  bridge.registerHandler('addCarHandler', function (response, responseCallback) {
+    // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
+    if (typeof response === 'string')
+      response = JSON.parse(response);
+
+    /*        var token = response.token;
+     var phone = response.phone;
+     var triggerId = response.triggerId;*/
+
+    if(typeof callback === 'function') {
+      callback.apply(this, Array.prototype.concat(response, args));
+    }
+
+    var loginParam = {};
+    loginParam.triggerId = 'btnLogin';
+    responseCallback(loginParam);
+  });
+};
+
+/**
+ * 唤起添加爱车
+ * @param triggerId
+ * @param callback
+ */
+JsBridge.prototype.addCar = function(triggerId, callback) {
+  var args = Array.prototype.slice.call(arguments, 2);
+  var bridge = this.bridge;
+  var addCarParams = {
+    triggerId: triggerId
+  };
+  bridge.callHandler('addCar', addCarParams, function (response) {});
+
+  if(typeof callback === 'function') {
+    callback.apply(this, Array.prototype.concat(triggerId, args));
+  }
+};
+/**
  * 左上角返回按钮
  * @param backParams
  */
