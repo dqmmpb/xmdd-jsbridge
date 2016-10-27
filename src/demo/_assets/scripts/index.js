@@ -87,9 +87,7 @@ $(function () {
             $('.img-uploadImg').attr('src', response.imageCodeStr);
           }
         }
-
       });
-
 
       $('.btn-login').click(function () {
         bridge.getUserToken('btnLogin', function (response) {
