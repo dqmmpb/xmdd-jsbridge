@@ -13,7 +13,7 @@ function connectWebViewJavascriptBridge(callback) {
 
 function thirdPartyPageTest(data) {
 	var testObj = {};
-	testObj.isThirdPartyPage = 'false';
+	testObj.isThirdPartyPage = false;
 	return JSON.stringify(testObj);
 }
 
@@ -24,7 +24,7 @@ connectWebViewJavascriptBridge(function(bridge) {
 
   if (/(Android)/i.test(navigator.userAgent)) {
     var notifyObj = {};
-    notifyObj.isThirdPartyPage = 'false';
+    notifyObj.isThirdPartyPage = false;
     bridge.callHandler('thirdPartyPageNotify', notifyObj, function(
         response) {
 

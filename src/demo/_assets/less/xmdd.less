@@ -7,10 +7,40 @@
 @import "_mixins.less";
 
 
+@color-bg: #f1f1f1;
+
 .content {
   ul  {
+    list-style-type: none;
+    padding: 0;
     & > li {
-      margin: 10px 0;
+      margin: 20px 0;
     }
+  }
+
+  .button {
+    padding: 10px;
+    min-height: 30px;
+    border-radius: 0;
+    background: @color-primary;
+    color: @card-bg;
+    outline: none;
+    border: none;
+  }
+  .info {
+    position: fixed;
+    top: 0;
+    right:0;
+    width: 150px;
+    height: 300px;
+    padding: 10px;
+    background: fade(@color-bg, 80%);
+    word-break: break-all;
+    overflow-y: auto;
+  }
+
+  .img-uploadImg {
+    width: 100px;
+    height: 100px;
   }
 }

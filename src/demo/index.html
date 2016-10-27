@@ -37,32 +37,28 @@
     <div class="content">
 
       <div>
+        <div id="info" class="info"></div>
         <ul>
-          <li><input type="text" id="token"/></li>
-          <li><input type="text" id="trigger"/></li>
-          <li><input type="text" id="respData"/></li>
-          <li><button class="btn-getoken">获取token</button></li>
-          <li><button class="btn-go">去第二页,未登录会调用登录框</button></li>
-          <li><button class="btn-modal">调用弹框</button></li>
-          <li><button class="btn-navi">调用导航</button></li>
-          <li><button class="btn-login">登录</button></li>
-          <li><button class="btn-barNavBtn">定义按钮</button></li>
-          <li><button class="btn-barRefreshBtn">定义刷新按钮</button></li>
-          <li><button class="btn-barNavBtn2">清除定义按钮</button></li>
-          <li><button class="btn-share">添加分享</button></li>
-          <li><button class="btn-openView">打开新的View加载页面</button></li>
-          <li><button class="btn-toast">弱提示</button></li>
-          <li><button class="btn-uploadImg">上传图片</button>
-            <img class="img-uploadImg" src="" style="width: 50px;height: 50px;">
+          <li><button class="button btn-login">登录，Token验证</button></li>
+          <li><button class="button btn-go">去第二页,未登录会调用登录</button></li>
+          <li><button class="button btn-modal">调用弹框</button></li>
+          <li><button class="button btn-navi">调用导航</button></li>
+          <li><button class="button btn-barNavBtn">定义右上角按钮</button></li>
+          <li><button class="button btn-barRefreshBtn">定义右上角为刷新按钮</button></li>
+          <li><button class="button btn-barClearBtn">清除右上角按钮</button></li>
+          <li><button class="button btn-share">定义右上角为分享按钮</button></li>
+          <li><button class="button btn-custom-share">重新定义分享并调用</button></li>
+          <li><button class="button btn-openView">打开新的View加载页面</button></li>
+          <li><button class="button btn-toast">弱提示</button></li>
+          <li>
+            <button class="button btn-uploadImg">上传图片</button>
+            <img class="img-uploadImg" src="">
           </li>
-          <li><button class="btn-position">获取地理位置</button></li>
-          <li><button class="btn-netState">获取当前网络状态</button></li>
-          <li><button class="btn-callPhone">拨打电话号码</button></li>
-          <li><button class="btn-notice">通知安卓客户端当前页面是否属于第三方页面</button></li>
-          <li><button class="btn-custom-share">主动调分享</button></li>
-          <li><button class="btn-update-guide">版本更新，引导下载</button></li>
-          <li><button class="btn-addCar">新增车辆</button></li>
-          <li><div id="info"></div></li>
+          <li><button class="button btn-position">获取地理位置</button></li>
+          <li><button class="button btn-netState">获取当前网络状态</button></li>
+          <li><button class="button btn-callPhone">拨打电话号码</button></li>
+          <li><button class="button btn-notify">通知安卓客户端当前页面是否属于第三方页面</button></li>
+          <li><button class="button btn-addCar">新增车辆</button></li>
         </ul>
       </div>
 
@@ -90,6 +86,7 @@
 <!-- build:js assets/scripts/vendor/xmdd-jsbridge.js -->
 <script src="/src/core/js/xmdd-jsbridge.js"></script>
 <script src="/src/core/js/xmdd-jsbridge-form.js"></script>
+<script src="/src/core/js/xmdd-jsbridge-init.js"></script>
 <!-- endbuild -->
 <!-- end -->
 

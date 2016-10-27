@@ -6,6 +6,15 @@ function JsBridge(bridge) {
 }
 
 /**
+ * 右上角Menu蓝
+ * @param message
+ */
+JsBridge.prototype.setOptionMenu = function(menuArray) {
+  var bridge = this.bridge;
+  bridge.callHandler('setOptionMenu', menuArray, function (response) {});
+};
+
+/**
  * 提示框
  * @param message
  */
@@ -30,7 +39,7 @@ JsBridge.prototype.openView = function(url) {
 };
 
 /**
- * 登录成功后回调
+ * 登录成功后回调 response中包含token phone triggerId
  * @param callback
  */
 JsBridge.prototype.loginHandler = function(callback) {
@@ -40,10 +49,6 @@ JsBridge.prototype.loginHandler = function(callback) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
     if (typeof response === 'string')
       response = JSON.parse(response);
-
-    /*        var token = response.token;
-     var phone = response.phone;
-     var triggerId = response.triggerId;*/
 
     if(typeof callback === 'function') {
       callback.apply(this, Array.prototype.concat(response, args));
@@ -93,9 +98,9 @@ JsBridge.prototype.addCarHandler = function(callback) {
       callback.apply(this, Array.prototype.concat(response, args));
     }
 
-    var loginParam = {};
-    loginParam.triggerId = 'btnLogin';
-    responseCallback(loginParam);
+    var addCarParam = {};
+    addCarParam.triggerId = 'btnAddCar';
+    responseCallback(addCarParam);
   });
 };
 
@@ -125,8 +130,6 @@ JsBridge.prototype.returnBackHandler = function(backParams, callback) {
   var bridge = this.bridge;
   // 定义返回
   bridge.registerHandler('returnBackHandler', function(response, responseCallback) {
-    /*    var backParam = {};
-     backParam.isFirstPage = true;*/
 
     if(typeof callback === 'function') {
       callback.apply(this, args);
@@ -166,9 +169,157 @@ JsBridge.prototype.barNavBtn = function(btnRightParams) {
    triggerId: triggerId,
    icon: '',
    title: title,
-   type: '0'
+   type: '0' // '-1' 表示清除
    };*/
   bridge.callHandler('barNavBtn', btnRightParams, function(response) {});
+};
+
+/**
+ * 唤起分享框
+ */
+JsBridge.prototype.callShareAction = function() {
+  var bridge = this.bridge;
+  bridge.callHandler('callShareAction', null, function(response) {});
+};
+
+/**
+ * 右上角按钮事件回调
+ * @param callback
+ */
+JsBridge.prototype.barNavBtnHandler = function(callback) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  var bridge = this.bridge;
+  bridge.registerHandler('barNavBtnHandler', function (response, responseCallback) {
+    // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
+    if (typeof response === 'string')
+      response = JSON.parse(response);
+
+    if(typeof callback === 'function') {
+      callback.apply(this, Array.prototype.concat(response, args));
+    }
+  });
+};
+
+/**
+ * 模态窗口回调
+ * @param callback
+ */
+JsBridge.prototype.modalHandler = function(callback) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  var bridge = this.bridge;
+  bridge.registerHandler('modalHandler', function (response, responseCallback) {
+    // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
+    if (typeof response === 'string')
+      response = JSON.parse(response);
+
+    if(typeof callback === 'function') {
+      callback.apply(this, Array.prototype.concat(response, args));
+    }
+
+    var modalParam = {};
+    modalParam.value = 0;
+    modalParam.modalId = 'modal';
+    responseCallback(modalParam);
+  });
+};
+
+
+/**
+ * 选择图片前回调
+ * @param callback
+ */
+JsBridge.prototype.singleImageBefore = function(callback) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  var bridge = this.bridge;
+  bridge.registerHandler('singleImageBefore', function (response, responseCallback) {
+    // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
+    if (typeof response === 'string')
+      response = JSON.parse(response);
+
+    if(typeof callback === 'function') {
+      callback.apply(this, Array.prototype.concat(response, args));
+    }
+
+    responseCallback(null);
+  });
+};
+
+
+/**
+ * 选择图片后回调
+ * @param callback
+ */
+JsBridge.prototype.singleImageBack = function(callback) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  var bridge = this.bridge;
+  bridge.registerHandler('singleImageBack', function (response, responseCallback) {
+    // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
+    if (typeof response === 'string')
+      response = JSON.parse(response);
+
+    if(typeof callback === 'function') {
+      callback.apply(this, Array.prototype.concat(response, args));
+    }
+    responseCallback(null);
+  });
+};
+
+/**
+ * 打开模态窗口
+ * @param modalParams
+ */
+JsBridge.prototype.modal = function(modalParams) {
+  var bridge = this.bridge;
+  bridge.callHandler('modal', modalParams, function(response) {});
+};
+
+/**
+ * 只提供给安卓客户端判断使用，通知安卓客户端是否为第三方页面
+ * @param modalParams
+ */
+JsBridge.prototype.thirdPartyPageNotify = function(notifyParams) {
+  var bridge = this.bridge;
+/*  var notifyParams = {
+    isThirdPartyPage: false
+  };*/
+  bridge.callHandler('thirdPartyPageNotify', notifyParams, function(response) {});
+};
+
+
+/**
+ * 获取定位
+ * @param callback
+ */
+JsBridge.prototype.getCurrentPosition = function(callback) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  var bridge = this.bridge;
+  bridge.callHandler('getCurrentPosition', null, function (response) {
+    // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
+    if (typeof response === 'string')
+      response = JSON.parse(response);
+
+    if(typeof callback === 'function') {
+      callback.apply(this, Array.prototype.concat(response, args));
+    }
+  });
+};
+
+/**
+ * 获取当前网络状态
+ * @param callback
+ */
+JsBridge.prototype.callForNetworkState = function(callback) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  var bridge = this.bridge;
+  bridge.callHandler('callForNetworkState', null, function (response) {
+    // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
+    if (typeof response === 'string')
+      response = JSON.parse(response);
+
+    if(typeof callback === 'function') {
+      callback.apply(this, Array.prototype.concat(response, args));
+    }
+  });
 };
 
 /**
@@ -189,37 +340,62 @@ JsBridge.prototype.getUserToken = function(triggerId, callback) {
       _self.login(triggerId);
       return;
     }
-    /*var rData = response;
-     var token = rData.token;
-     var phone = rData.phone;
-     */
 
     response.triggerId = triggerId;
 
     if(typeof callback === 'function') {
       callback.apply(this, Array.prototype.concat(response, args));
     }
-
   });
-
 };
 
 /**
- * 唤起分享框
- */
-JsBridge.prototype.callShareAction = function() {
-  var bridge = this.bridge;
-  bridge.callHandler('callShareAction', {}, function(response) {});
-};
-
-/**
- * 右上角按钮事件回调
+ * 调用导航
+ * @param naviParams
  * @param callback
  */
-JsBridge.prototype.barNavBtnHandler = function(callback) {
-  var args = Array.prototype.slice.call(arguments, 1);
+JsBridge.prototype.navi = function(naviParams, callback) {
+  var args = Array.prototype.slice.call(arguments, 2);
   var bridge = this.bridge;
-  bridge.registerHandler('barNavBtnHandler', function (response, responseCallback) {
+  bridge.callHandler('navi', naviParams, function (response) {
+    // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
+    if (typeof response === 'string')
+      response = JSON.parse(response);
+
+    if(typeof callback === 'function') {
+      callback.apply(this, Array.prototype.concat(response, args));
+    }
+  });
+};
+
+/**
+ * 调用电话
+ * @param phoneParams
+ * @param callback
+ */
+JsBridge.prototype.getPhoneCall = function(phoneParams, callback) {
+  var args = Array.prototype.slice.call(arguments, 2);
+  var bridge = this.bridge;
+  bridge.callHandler('getPhoneCall', phoneParams, function (response) {
+    // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
+    if (typeof response === 'string')
+      response = JSON.parse(response);
+
+    if(typeof callback === 'function') {
+      callback.apply(this, Array.prototype.concat(response, args));
+    }
+  });
+};
+
+/**
+ * 调用选择图片
+ * @param selectSingleImageParams
+ * @param callback
+ */
+JsBridge.prototype.selectSingleImage = function(selectSingleImageParams, callback) {
+  var args = Array.prototype.slice.call(arguments, 2);
+  var bridge = this.bridge;
+  bridge.callHandler('selectSingleImage', selectSingleImageParams, function (response) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
     if (typeof response === 'string')
       response = JSON.parse(response);

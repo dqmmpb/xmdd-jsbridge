@@ -2,17 +2,13 @@
 
 $(function() {
 
-  connectWebViewJavascriptBridge(function(bridge) {
-    var menuArr = [];
-    bridge.callHandler('setOptionMenu', menuArr, function (response) {
-
-    });
+  $.jsBridgeInit(function(bridge) {
 
     // 绑定返回事件
-    bridge.registerHandler('returnBackHandler', function(data, responseCallback) {
-      var backParam = {};
-      backParam.isFirstPage = 'true';
-      responseCallback(backParam);
+    bridge.returnBackHandler({
+      isFirstPage: false
+    }, function () {
+      location.href = 'index.html';
     });
   });
 
