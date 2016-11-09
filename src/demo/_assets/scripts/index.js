@@ -53,7 +53,7 @@ $(function () {
           $('#info').html(JSON.stringify(response));
         } else if (response.triggerId === 'btnAddCar') {
           $('#info').html(JSON.stringify(response));
-          bridge.addCar('btnAddCar', function (response) {
+           bridge.addCar('btnAddCar', function (addcarresponse) {
           });
         }
       });
@@ -239,7 +239,7 @@ $(function () {
       $('.btn-addCar').click(function () {
         bridge.getUserToken('btnAddCar', function (response) {
           $('#info').html(JSON.stringify(response));
-          bridge.addCar('btnAddCar', function (response) {
+          bridge.addCar('btnAddCar', function (addcarresponse) {
           });
         });
       });
