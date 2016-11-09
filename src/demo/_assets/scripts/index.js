@@ -2,13 +2,17 @@
 
 $(function () {
 
-  $.jsBridgeInit(function (bridge) {
+  var _self = this;
+
+  $.jsBridgeInit(this, function (bridge) {
+
+
 
     if (bridge) {
       // 绑定返回事件
       bridge.returnBackHandler({
         isFirstPage: true
-      }, function () {
+      }, _self, function () {
 
       });
 
@@ -23,7 +27,7 @@ $(function () {
       });
 
       // 定义右上角按钮点击事件回调
-      bridge.barNavBtnHandler(function (response) {
+      bridge.barNavBtnHandler(_self, function (response) {
         if (response.triggerId === 'btnShare') {
           $('#info').html(JSON.stringify(response));
           bridge.callShareAction();
@@ -46,7 +50,7 @@ $(function () {
       });
 
       // 定义登录成功回调
-      bridge.loginHandler(function (response) {
+      bridge.loginHandler(_self, function (response) {
         if (response.triggerId === 'btnLogin') {
           $('#info').html(JSON.stringify(response));
         } else if (response.triggerId === 'btnGo') {
@@ -59,7 +63,7 @@ $(function () {
       });
 
       // 定义添加爱车回调
-      bridge.addCarHandler(function (response) {
+      bridge.addCarHandler(_self, function (response) {
         if (response.triggerId === 'btnAddCar') {
           if (response.carId) {
             $('#info').html(JSON.stringify(response));
@@ -68,19 +72,19 @@ $(function () {
       });
 
       // 定义模态窗口回调
-      bridge.modalHandler(function (response) {
+      bridge.modalHandler(_self, function (response) {
         if (response.modalId === 'modal') {
           $('#info').html(JSON.stringify(response));
         }
       });
 
       // 注册上传图片前的回调
-      bridge.singleImageBefore(function (response) {
+      bridge.singleImageBefore(_self, function (response) {
         $('#info').html(JSON.stringify(response));
       });
 
       // 注册选择图片后的回调
-      bridge.singleImageBack(function (response) {
+      bridge.singleImageBack(_self, function (response) {
         $('#info').html(JSON.stringify(response));
         if (response.imgId === 'uploadImg') {
           if (response.imageUrl) {
@@ -90,13 +94,13 @@ $(function () {
       });
 
       $('.btn-login').click(function () {
-        bridge.getUserToken('btnLogin', function (response) {
+        bridge.getUserToken('btnLogin', _self, function (response) {
           $('#info').html(JSON.stringify(response));
         });
       });
 
       $('.btn-go').click(function () {
-        bridge.getUserToken('btnGo', function (response) {
+        bridge.getUserToken('btnGo', _self, function (response) {
           $('#info').html(JSON.stringify(response));
           setTimeout(function () {
             location.href = 'second.html';
@@ -133,7 +137,7 @@ $(function () {
         bridge.navi({
           distination: '117.500244,40.417801',
           name: '小马达达国际研发中心'
-        });
+        }, _self);
       });
 
       // 定义右上角按钮为附近操作
@@ -214,14 +218,14 @@ $(function () {
 
       // 获取地理位置
       $('.btn-position').click(function () {
-        bridge.getCurrentPosition(function (response) {
+        bridge.getCurrentPosition(_self, function (response) {
           $('#info').html(JSON.stringify(response));
         });
       });
 
       // 获取当前网络状态
       $('.btn-netState').click(function () {
-        bridge.callForNetworkState(function (response) {
+        bridge.callForNetworkState(_self, function (response) {
           $('#info').html(JSON.stringify(response));
         });
       });
@@ -230,14 +234,14 @@ $(function () {
       $('.btn-callPhone').click(function () {
         bridge.getPhoneCall({
           phoneNum: '13819493700'
-        }, function (response) {
+        }, _self, function (response) {
           $('#info').html(JSON.stringify(response));
         });
       });
 
       // 添加爱车
       $('.btn-addCar').click(function () {
-        bridge.getUserToken('btnAddCar', function (response) {
+        bridge.getUserToken('btnAddCar', _self, function (response) {
           $('#info').html(JSON.stringify(response));
           bridge.addCar('btnAddCar', function (addcarresponse) {
           });
@@ -252,7 +256,7 @@ $(function () {
           width: '200',
           height: '200',
           uploadUrl: 'http://dev01.xiaomadada.com/paa/rest/api/fileupload'
-        }, function (response) {
+        }, _self, function (response) {
           $('#info').html(JSON.stringify(response));
         });
       });

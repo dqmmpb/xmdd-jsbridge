@@ -42,8 +42,8 @@ JsBridge.prototype.openView = function(url) {
  * 登录成功后回调 response中包含token phone triggerId
  * @param callback
  */
-JsBridge.prototype.loginHandler = function(callback) {
-  var args = Array.prototype.slice.call(arguments, 1);
+JsBridge.prototype.loginHandler = function(caller, callback) {
+  var args = Array.prototype.slice.call(arguments, 2);
   var bridge = this.bridge;
   bridge.registerHandler('loginHandler', function (response, responseCallback) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -51,7 +51,7 @@ JsBridge.prototype.loginHandler = function(callback) {
       response = JSON.parse(response);
 
     if(typeof callback === 'function') {
-      callback.apply(this, Array.prototype.concat(response, args));
+      callback.apply(caller, Array.prototype.concat(response, args));
     }
 
     var loginParam = {};
@@ -65,8 +65,8 @@ JsBridge.prototype.loginHandler = function(callback) {
  * @param triggerId
  * @param callback
  */
-JsBridge.prototype.login = function(triggerId, callback) {
-  var args = Array.prototype.slice.call(arguments, 2);
+JsBridge.prototype.login = function(triggerId, caller, callback) {
+  var args = Array.prototype.slice.call(arguments, 3);
   var bridge = this.bridge;
   var loginParams = {
     triggerId: triggerId
@@ -74,7 +74,7 @@ JsBridge.prototype.login = function(triggerId, callback) {
   bridge.callHandler('login', loginParams, function (response) {});
 
   if(typeof callback === 'function') {
-    callback.apply(this, Array.prototype.concat(triggerId, args));
+    callback.apply(caller, Array.prototype.concat(triggerId, args));
   }
 };
 
@@ -82,8 +82,8 @@ JsBridge.prototype.login = function(triggerId, callback) {
  * 添加爱车成功后回调
  * @param callback
  */
-JsBridge.prototype.addCarHandler = function(callback) {
-  var args = Array.prototype.slice.call(arguments, 1);
+JsBridge.prototype.addCarHandler = function(caller, callback) {
+  var args = Array.prototype.slice.call(arguments, 2);
   var bridge = this.bridge;
   bridge.registerHandler('addCarHandler', function (response, responseCallback) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -95,7 +95,7 @@ JsBridge.prototype.addCarHandler = function(callback) {
      var triggerId = response.triggerId;*/
 
     if(typeof callback === 'function') {
-      callback.apply(this, Array.prototype.concat(response, args));
+      callback.apply(caller, Array.prototype.concat(response, args));
     }
 
     var addCarParam = {};
@@ -109,8 +109,8 @@ JsBridge.prototype.addCarHandler = function(callback) {
  * @param triggerId
  * @param callback
  */
-JsBridge.prototype.addCar = function(triggerId, callback) {
-  var args = Array.prototype.slice.call(arguments, 2);
+JsBridge.prototype.addCar = function(triggerId, caller, callback) {
+  var args = Array.prototype.slice.call(arguments, 3);
   var bridge = this.bridge;
   var addCarParams = {
     triggerId: triggerId
@@ -118,21 +118,21 @@ JsBridge.prototype.addCar = function(triggerId, callback) {
   bridge.callHandler('addCar', addCarParams, function (response) {});
 
   if(typeof callback === 'function') {
-    callback.apply(this, Array.prototype.concat(triggerId, args));
+    callback.apply(caller, Array.prototype.concat(triggerId, args));
   }
 };
 /**
  * 左上角返回按钮
  * @param backParams
  */
-JsBridge.prototype.returnBackHandler = function(backParams, callback) {
-  var args = Array.prototype.slice.call(arguments, 2);
+JsBridge.prototype.returnBackHandler = function(backParams, caller, callback) {
+  var args = Array.prototype.slice.call(arguments, 3);
   var bridge = this.bridge;
   // 定义返回
   bridge.registerHandler('returnBackHandler', function(response, responseCallback) {
 
     if(typeof callback === 'function') {
-      callback.apply(this, args);
+      callback.apply(caller, args);
     }
     responseCallback(backParams);
   });
@@ -186,8 +186,8 @@ JsBridge.prototype.callShareAction = function() {
  * 右上角按钮事件回调
  * @param callback
  */
-JsBridge.prototype.barNavBtnHandler = function(callback) {
-  var args = Array.prototype.slice.call(arguments, 1);
+JsBridge.prototype.barNavBtnHandler = function(caller, callback) {
+  var args = Array.prototype.slice.call(arguments, 2);
   var bridge = this.bridge;
   bridge.registerHandler('barNavBtnHandler', function (response, responseCallback) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -195,7 +195,7 @@ JsBridge.prototype.barNavBtnHandler = function(callback) {
       response = JSON.parse(response);
 
     if(typeof callback === 'function') {
-      callback.apply(this, Array.prototype.concat(response, args));
+      callback.apply(caller, Array.prototype.concat(response, args));
     }
   });
 };
@@ -204,8 +204,8 @@ JsBridge.prototype.barNavBtnHandler = function(callback) {
  * 模态窗口回调
  * @param callback
  */
-JsBridge.prototype.modalHandler = function(callback) {
-  var args = Array.prototype.slice.call(arguments, 1);
+JsBridge.prototype.modalHandler = function(caller, callback) {
+  var args = Array.prototype.slice.call(arguments, 2);
   var bridge = this.bridge;
   bridge.registerHandler('modalHandler', function (response, responseCallback) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -213,7 +213,7 @@ JsBridge.prototype.modalHandler = function(callback) {
       response = JSON.parse(response);
 
     if(typeof callback === 'function') {
-      callback.apply(this, Array.prototype.concat(response, args));
+      callback.apply(caller, Array.prototype.concat(response, args));
     }
 
     var modalParam = {};
@@ -228,8 +228,8 @@ JsBridge.prototype.modalHandler = function(callback) {
  * 选择图片前回调
  * @param callback
  */
-JsBridge.prototype.singleImageBefore = function(callback) {
-  var args = Array.prototype.slice.call(arguments, 1);
+JsBridge.prototype.singleImageBefore = function(caller, callback) {
+  var args = Array.prototype.slice.call(arguments, 2);
   var bridge = this.bridge;
   bridge.registerHandler('singleImageBefore', function (response, responseCallback) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -237,7 +237,7 @@ JsBridge.prototype.singleImageBefore = function(callback) {
       response = JSON.parse(response);
 
     if(typeof callback === 'function') {
-      callback.apply(this, Array.prototype.concat(response, args));
+      callback.apply(caller, Array.prototype.concat(response, args));
     }
 
     responseCallback(null);
@@ -249,8 +249,8 @@ JsBridge.prototype.singleImageBefore = function(callback) {
  * 选择图片后回调
  * @param callback
  */
-JsBridge.prototype.singleImageBack = function(callback) {
-  var args = Array.prototype.slice.call(arguments, 1);
+JsBridge.prototype.singleImageBack = function(caller, callback) {
+  var args = Array.prototype.slice.call(arguments, 2);
   var bridge = this.bridge;
   bridge.registerHandler('singleImageBack', function (response, responseCallback) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -258,7 +258,7 @@ JsBridge.prototype.singleImageBack = function(callback) {
       response = JSON.parse(response);
 
     if(typeof callback === 'function') {
-      callback.apply(this, Array.prototype.concat(response, args));
+      callback.apply(caller, Array.prototype.concat(response, args));
     }
     responseCallback(null);
   });
@@ -290,9 +290,8 @@ JsBridge.prototype.thirdPartyPageNotify = function(notifyParams) {
  * 获取定位
  * @param callback
  */
-JsBridge.prototype.getCurrentPosition = function(callback) {
-  var args = Array.prototype.slice.call(arguments, 1);
-  var _self = this;
+JsBridge.prototype.getCurrentPosition = function(caller, callback) {
+  var args = Array.prototype.slice.call(arguments, 2);
   var bridge = this.bridge;
   bridge.callHandler('getCurrentPosition', null, function (response) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -300,7 +299,7 @@ JsBridge.prototype.getCurrentPosition = function(callback) {
       response = JSON.parse(response);
 
     if(typeof callback === 'function') {
-      callback.apply(_self, Array.prototype.concat(response, args));
+      callback.apply(caller, Array.prototype.concat(response, args));
     }
   });
 };
@@ -309,8 +308,8 @@ JsBridge.prototype.getCurrentPosition = function(callback) {
  * 获取当前网络状态
  * @param callback
  */
-JsBridge.prototype.callForNetworkState = function(callback) {
-  var args = Array.prototype.slice.call(arguments, 1);
+JsBridge.prototype.callForNetworkState = function(caller, callback) {
+  var args = Array.prototype.slice.call(arguments, 2);
   var bridge = this.bridge;
   bridge.callHandler('callForNetworkState', null, function (response) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -318,7 +317,7 @@ JsBridge.prototype.callForNetworkState = function(callback) {
       response = JSON.parse(response);
 
     if(typeof callback === 'function') {
-      callback.apply(this, Array.prototype.concat(response, args));
+      callback.apply(caller, Array.prototype.concat(response, args));
     }
   });
 };
@@ -328,8 +327,8 @@ JsBridge.prototype.callForNetworkState = function(callback) {
  * @param triggerId
  * @param callback
  */
-JsBridge.prototype.getUserToken = function(triggerId, callback) {
-  var args = Array.prototype.slice.call(arguments, 2);
+JsBridge.prototype.getUserToken = function(triggerId, caller, callback) {
+  var args = Array.prototype.slice.call(arguments, 3);
   var _self = this;
   var bridge = this.bridge;
   bridge.callHandler('getUserToken', null, function (response) {
@@ -345,7 +344,7 @@ JsBridge.prototype.getUserToken = function(triggerId, callback) {
     response.triggerId = triggerId;
 
     if(typeof callback === 'function') {
-      callback.apply(_self, Array.prototype.concat(response, args));
+      callback.apply(caller, Array.prototype.concat(response, args));
     }
   });
 };
@@ -355,9 +354,8 @@ JsBridge.prototype.getUserToken = function(triggerId, callback) {
  * @param naviParams
  * @param callback
  */
-JsBridge.prototype.navi = function(naviParams, callback) {
-  var args = Array.prototype.slice.call(arguments, 2);
-  var _self = this;
+JsBridge.prototype.navi = function(naviParams, caller, callback) {
+  var args = Array.prototype.slice.call(arguments, 3);
   var bridge = this.bridge;
   bridge.callHandler('navi', naviParams, function (response) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -365,7 +363,7 @@ JsBridge.prototype.navi = function(naviParams, callback) {
       response = JSON.parse(response);
 
     if(typeof callback === 'function') {
-      callback.apply(_self, Array.prototype.concat(response, args));
+      callback.apply(caller, Array.prototype.concat(response, args));
     }
   });
 };
@@ -375,9 +373,8 @@ JsBridge.prototype.navi = function(naviParams, callback) {
  * @param phoneParams
  * @param callback
  */
-JsBridge.prototype.getPhoneCall = function(phoneParams, callback) {
-  var args = Array.prototype.slice.call(arguments, 2);
-  var _self = this;
+JsBridge.prototype.getPhoneCall = function(phoneParams, caller, callback) {
+  var args = Array.prototype.slice.call(arguments, 3);
   var bridge = this.bridge;
   bridge.callHandler('getPhoneCall', phoneParams, function (response) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -385,7 +382,7 @@ JsBridge.prototype.getPhoneCall = function(phoneParams, callback) {
       response = JSON.parse(response);
 
     if(typeof callback === 'function') {
-      callback.apply(_self, Array.prototype.concat(response, args));
+      callback.apply(caller, Array.prototype.concat(response, args));
     }
   });
 };
@@ -395,9 +392,8 @@ JsBridge.prototype.getPhoneCall = function(phoneParams, callback) {
  * @param selectSingleImageParams
  * @param callback
  */
-JsBridge.prototype.selectSingleImage = function(selectSingleImageParams, callback) {
-  var args = Array.prototype.slice.call(arguments, 2);
-  var _self = this;
+JsBridge.prototype.selectSingleImage = function(selectSingleImageParams, caller, callback) {
+  var args = Array.prototype.slice.call(arguments, 3);
   var bridge = this.bridge;
   bridge.callHandler('selectSingleImage', selectSingleImageParams, function (response) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -405,7 +401,7 @@ JsBridge.prototype.selectSingleImage = function(selectSingleImageParams, callbac
       response = JSON.parse(response);
 
     if(typeof callback === 'function') {
-      callback.apply(_self, Array.prototype.concat(response, args));
+      callback.apply(caller, Array.prototype.concat(response, args));
     }
   });
 };
@@ -421,18 +417,17 @@ JsBridge.prototype.init = function() {
 };
 
 (function($){
-  $.jsBridgeInit = function init(callback) {
-    var args = Array.prototype.slice.call(arguments, 1);
-    var _self = this;
+  $.jsBridgeInit = function init(caller, callback) {
+    var args = Array.prototype.slice.call(arguments, 2);
     var regExp = /(?:(?:XmddApp\()(?:\w+)|(?:Xmdd))+[\/]{0,1}([\d.]+)(?:\))?/i; //兼容旧版本
     if(regExp.test(navigator.userAgent)) {
       connectWebViewJavascriptBridge(function (bridge) {
         if(typeof callback === 'function') {
-          callback.apply(_self, Array.prototype.concat(new JsBridge(bridge), args));
+          callback.apply(caller, Array.prototype.concat(new JsBridge(bridge), args));
         }
       });
     } else {
-      callback.apply(_self, Array.prototype.concat(undefined, args));
+      callback.apply(caller, Array.prototype.concat(undefined, args));
     }
   };
 })(jQuery);
