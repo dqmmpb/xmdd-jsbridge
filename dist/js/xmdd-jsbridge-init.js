@@ -40,6 +40,7 @@ JsBridge.prototype.openView = function(url) {
 
 /**
  * 登录成功后回调 response中包含token phone triggerId
+ * @param caller
  * @param callback
  */
 JsBridge.prototype.loginHandler = function(caller, callback) {
@@ -50,7 +51,7 @@ JsBridge.prototype.loginHandler = function(caller, callback) {
     if (typeof response === 'string')
       response = JSON.parse(response);
 
-    if(typeof callback === 'function') {
+    if(caller && typeof callback === 'function') {
       callback.apply(caller, Array.prototype.concat(response, args));
     }
 
@@ -63,6 +64,7 @@ JsBridge.prototype.loginHandler = function(caller, callback) {
 /**
  * 唤起登录
  * @param triggerId
+ * @param caller
  * @param callback
  */
 JsBridge.prototype.login = function(triggerId, caller, callback) {
@@ -73,13 +75,14 @@ JsBridge.prototype.login = function(triggerId, caller, callback) {
   };
   bridge.callHandler('login', loginParams, function (response) {});
 
-  if(typeof callback === 'function') {
+  if(caller && typeof callback === 'function') {
     callback.apply(caller, Array.prototype.concat(triggerId, args));
   }
 };
 
 /**
  * 添加爱车成功后回调
+ * @param caller
  * @param callback
  */
 JsBridge.prototype.addCarHandler = function(caller, callback) {
@@ -94,7 +97,7 @@ JsBridge.prototype.addCarHandler = function(caller, callback) {
      var phone = response.phone;
      var triggerId = response.triggerId;*/
 
-    if(typeof callback === 'function') {
+    if(caller && typeof callback === 'function') {
       callback.apply(caller, Array.prototype.concat(response, args));
     }
 
@@ -107,6 +110,7 @@ JsBridge.prototype.addCarHandler = function(caller, callback) {
 /**
  * 唤起添加爱车
  * @param triggerId
+ * @param caller
  * @param callback
  */
 JsBridge.prototype.addCar = function(triggerId, caller, callback) {
@@ -117,13 +121,15 @@ JsBridge.prototype.addCar = function(triggerId, caller, callback) {
   };
   bridge.callHandler('addCar', addCarParams, function (response) {});
 
-  if(typeof callback === 'function') {
+  if(caller && typeof callback === 'function') {
     callback.apply(caller, Array.prototype.concat(triggerId, args));
   }
 };
 /**
  * 左上角返回按钮
  * @param backParams
+ * @param caller
+ * @param callback
  */
 JsBridge.prototype.returnBackHandler = function(backParams, caller, callback) {
   var args = Array.prototype.slice.call(arguments, 3);
@@ -131,7 +137,7 @@ JsBridge.prototype.returnBackHandler = function(backParams, caller, callback) {
   // 定义返回
   bridge.registerHandler('returnBackHandler', function(response, responseCallback) {
 
-    if(typeof callback === 'function') {
+    if(caller && typeof callback === 'function') {
       callback.apply(caller, args);
     }
     responseCallback(backParams);
@@ -158,8 +164,7 @@ JsBridge.prototype.getShareParamHandler = function(shareParams) {
 
 /**
  * 定义右上角按钮
- * @param triggerId
- * @param title
+ * @param btnRightParams
  */
 JsBridge.prototype.barNavBtn = function(btnRightParams) {
   var bridge = this.bridge;
@@ -184,6 +189,7 @@ JsBridge.prototype.callShareAction = function() {
 
 /**
  * 右上角按钮事件回调
+ * @param caller
  * @param callback
  */
 JsBridge.prototype.barNavBtnHandler = function(caller, callback) {
@@ -194,7 +200,7 @@ JsBridge.prototype.barNavBtnHandler = function(caller, callback) {
     if (typeof response === 'string')
       response = JSON.parse(response);
 
-    if(typeof callback === 'function') {
+    if(caller && typeof callback === 'function') {
       callback.apply(caller, Array.prototype.concat(response, args));
     }
   });
@@ -202,6 +208,7 @@ JsBridge.prototype.barNavBtnHandler = function(caller, callback) {
 
 /**
  * 模态窗口回调
+ * @param caller
  * @param callback
  */
 JsBridge.prototype.modalHandler = function(caller, callback) {
@@ -212,7 +219,7 @@ JsBridge.prototype.modalHandler = function(caller, callback) {
     if (typeof response === 'string')
       response = JSON.parse(response);
 
-    if(typeof callback === 'function') {
+    if(caller && typeof callback === 'function') {
       callback.apply(caller, Array.prototype.concat(response, args));
     }
 
@@ -226,6 +233,7 @@ JsBridge.prototype.modalHandler = function(caller, callback) {
 
 /**
  * 选择图片前回调
+ * @param caller
  * @param callback
  */
 JsBridge.prototype.singleImageBefore = function(caller, callback) {
@@ -236,7 +244,7 @@ JsBridge.prototype.singleImageBefore = function(caller, callback) {
     if (typeof response === 'string')
       response = JSON.parse(response);
 
-    if(typeof callback === 'function') {
+    if(caller && typeof callback === 'function') {
       callback.apply(caller, Array.prototype.concat(response, args));
     }
 
@@ -247,6 +255,7 @@ JsBridge.prototype.singleImageBefore = function(caller, callback) {
 
 /**
  * 选择图片后回调
+ * @param caller
  * @param callback
  */
 JsBridge.prototype.singleImageBack = function(caller, callback) {
@@ -257,7 +266,7 @@ JsBridge.prototype.singleImageBack = function(caller, callback) {
     if (typeof response === 'string')
       response = JSON.parse(response);
 
-    if(typeof callback === 'function') {
+    if(caller && typeof callback === 'function') {
       callback.apply(caller, Array.prototype.concat(response, args));
     }
     responseCallback(null);
@@ -288,6 +297,7 @@ JsBridge.prototype.thirdPartyPageNotify = function(notifyParams) {
 
 /**
  * 获取定位
+ * @param caller
  * @param callback
  */
 JsBridge.prototype.getCurrentPosition = function(caller, callback) {
@@ -298,7 +308,7 @@ JsBridge.prototype.getCurrentPosition = function(caller, callback) {
     if (typeof response === 'string')
       response = JSON.parse(response);
 
-    if(typeof callback === 'function') {
+    if(caller && typeof callback === 'function') {
       callback.apply(caller, Array.prototype.concat(response, args));
     }
   });
@@ -306,6 +316,7 @@ JsBridge.prototype.getCurrentPosition = function(caller, callback) {
 
 /**
  * 获取当前网络状态
+ * @param caller
  * @param callback
  */
 JsBridge.prototype.callForNetworkState = function(caller, callback) {
@@ -316,7 +327,7 @@ JsBridge.prototype.callForNetworkState = function(caller, callback) {
     if (typeof response === 'string')
       response = JSON.parse(response);
 
-    if(typeof callback === 'function') {
+    if(caller && typeof callback === 'function') {
       callback.apply(caller, Array.prototype.concat(response, args));
     }
   });
@@ -325,6 +336,7 @@ JsBridge.prototype.callForNetworkState = function(caller, callback) {
 /**
  * 获取用户信息，如未登录则弹出登录框，登录后执行回调函数
  * @param triggerId
+ * @param caller
  * @param callback
  */
 JsBridge.prototype.getUserToken = function(triggerId, caller, callback) {
@@ -343,7 +355,7 @@ JsBridge.prototype.getUserToken = function(triggerId, caller, callback) {
 
     response.triggerId = triggerId;
 
-    if(typeof callback === 'function') {
+    if(caller && typeof callback === 'function') {
       callback.apply(caller, Array.prototype.concat(response, args));
     }
   });
@@ -352,6 +364,7 @@ JsBridge.prototype.getUserToken = function(triggerId, caller, callback) {
 /**
  * 调用导航
  * @param naviParams
+ * @param caller
  * @param callback
  */
 JsBridge.prototype.navi = function(naviParams, caller, callback) {
@@ -362,7 +375,7 @@ JsBridge.prototype.navi = function(naviParams, caller, callback) {
     if (typeof response === 'string')
       response = JSON.parse(response);
 
-    if(typeof callback === 'function') {
+    if(caller && typeof callback === 'function') {
       callback.apply(caller, Array.prototype.concat(response, args));
     }
   });
@@ -371,6 +384,7 @@ JsBridge.prototype.navi = function(naviParams, caller, callback) {
 /**
  * 调用电话
  * @param phoneParams
+ * @param caller
  * @param callback
  */
 JsBridge.prototype.getPhoneCall = function(phoneParams, caller, callback) {
@@ -381,7 +395,7 @@ JsBridge.prototype.getPhoneCall = function(phoneParams, caller, callback) {
     if (typeof response === 'string')
       response = JSON.parse(response);
 
-    if(typeof callback === 'function') {
+    if(caller && typeof callback === 'function') {
       callback.apply(caller, Array.prototype.concat(response, args));
     }
   });
@@ -390,6 +404,7 @@ JsBridge.prototype.getPhoneCall = function(phoneParams, caller, callback) {
 /**
  * 调用选择图片
  * @param selectSingleImageParams
+ * @param caller
  * @param callback
  */
 JsBridge.prototype.selectSingleImage = function(selectSingleImageParams, caller, callback) {
@@ -400,7 +415,7 @@ JsBridge.prototype.selectSingleImage = function(selectSingleImageParams, caller,
     if (typeof response === 'string')
       response = JSON.parse(response);
 
-    if(typeof callback === 'function') {
+    if(caller && typeof callback === 'function') {
       callback.apply(caller, Array.prototype.concat(response, args));
     }
   });
@@ -417,17 +432,24 @@ JsBridge.prototype.init = function() {
 };
 
 (function($){
+  /**
+   * 初始化jsBridgeInit方法
+   * @param caller
+   * @param callback
+   */
   $.jsBridgeInit = function init(caller, callback) {
     var args = Array.prototype.slice.call(arguments, 2);
     var regExp = /(?:(?:XmddApp\()(?:\w+)|(?:Xmdd))+[\/]{0,1}([\d.]+)(?:\))?/i; //兼容旧版本
     if(regExp.test(navigator.userAgent)) {
       connectWebViewJavascriptBridge(function (bridge) {
-        if(typeof callback === 'function') {
+        if(caller && typeof callback === 'function') {
           callback.apply(caller, Array.prototype.concat(new JsBridge(bridge), args));
         }
       });
     } else {
-      callback.apply(caller, Array.prototype.concat(undefined, args));
+      if(caller && typeof callback === 'function') {
+        callback.apply(caller, Array.prototype.concat(undefined, args));
+      }
     }
   };
 })(jQuery);
