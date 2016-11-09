@@ -292,6 +292,7 @@ JsBridge.prototype.thirdPartyPageNotify = function(notifyParams) {
  */
 JsBridge.prototype.getCurrentPosition = function(callback) {
   var args = Array.prototype.slice.call(arguments, 1);
+  var _self = this;
   var bridge = this.bridge;
   bridge.callHandler('getCurrentPosition', null, function (response) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -299,7 +300,7 @@ JsBridge.prototype.getCurrentPosition = function(callback) {
       response = JSON.parse(response);
 
     if(typeof callback === 'function') {
-      callback.apply(this, Array.prototype.concat(response, args));
+      callback.apply(_self, Array.prototype.concat(response, args));
     }
   });
 };
@@ -344,7 +345,7 @@ JsBridge.prototype.getUserToken = function(triggerId, callback) {
     response.triggerId = triggerId;
 
     if(typeof callback === 'function') {
-      callback.apply(this, Array.prototype.concat(response, args));
+      callback.apply(_self, Array.prototype.concat(response, args));
     }
   });
 };
@@ -356,6 +357,7 @@ JsBridge.prototype.getUserToken = function(triggerId, callback) {
  */
 JsBridge.prototype.navi = function(naviParams, callback) {
   var args = Array.prototype.slice.call(arguments, 2);
+  var _self = this;
   var bridge = this.bridge;
   bridge.callHandler('navi', naviParams, function (response) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -363,7 +365,7 @@ JsBridge.prototype.navi = function(naviParams, callback) {
       response = JSON.parse(response);
 
     if(typeof callback === 'function') {
-      callback.apply(this, Array.prototype.concat(response, args));
+      callback.apply(_self, Array.prototype.concat(response, args));
     }
   });
 };
@@ -375,6 +377,7 @@ JsBridge.prototype.navi = function(naviParams, callback) {
  */
 JsBridge.prototype.getPhoneCall = function(phoneParams, callback) {
   var args = Array.prototype.slice.call(arguments, 2);
+  var _self = this;
   var bridge = this.bridge;
   bridge.callHandler('getPhoneCall', phoneParams, function (response) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -382,7 +385,7 @@ JsBridge.prototype.getPhoneCall = function(phoneParams, callback) {
       response = JSON.parse(response);
 
     if(typeof callback === 'function') {
-      callback.apply(this, Array.prototype.concat(response, args));
+      callback.apply(_self, Array.prototype.concat(response, args));
     }
   });
 };
@@ -394,6 +397,7 @@ JsBridge.prototype.getPhoneCall = function(phoneParams, callback) {
  */
 JsBridge.prototype.selectSingleImage = function(selectSingleImageParams, callback) {
   var args = Array.prototype.slice.call(arguments, 2);
+  var _self = this;
   var bridge = this.bridge;
   bridge.callHandler('selectSingleImage', selectSingleImageParams, function (response) {
     // 注： ios直接返回的是object对象，android返回的是json的字符串，需要调用JSON.parse();
@@ -401,7 +405,7 @@ JsBridge.prototype.selectSingleImage = function(selectSingleImageParams, callbac
       response = JSON.parse(response);
 
     if(typeof callback === 'function') {
-      callback.apply(this, Array.prototype.concat(response, args));
+      callback.apply(_self, Array.prototype.concat(response, args));
     }
   });
 };
@@ -419,15 +423,16 @@ JsBridge.prototype.init = function() {
 (function($){
   $.jsBridgeInit = function init(callback) {
     var args = Array.prototype.slice.call(arguments, 1);
+    var _self = this;
     var regExp = /(?:(?:XmddApp\()(?:\w+)|(?:Xmdd))+[\/]{0,1}([\d.]+)(?:\))?/i; //兼容旧版本
     if(regExp.test(navigator.userAgent)) {
       connectWebViewJavascriptBridge(function (bridge) {
         if(typeof callback === 'function') {
-          callback.apply(this, Array.prototype.concat(new JsBridge(bridge), args));
+          callback.apply(_self, Array.prototype.concat(new JsBridge(bridge), args));
         }
       });
     } else {
-      callback.apply(this, Array.prototype.concat(undefined, args));
+      callback.apply(_self, Array.prototype.concat(undefined, args));
     }
   };
 })(jQuery);
